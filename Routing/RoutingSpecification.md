@@ -28,7 +28,7 @@ GladNet2 specifications for AUID pushing and popping are as such:
 
 * Incoming NetworkMessages on a given **Peer** will internally push their own AUID defined in their **IConnectionDetails**
 
-* A GladNet2 routing service provides the following functionality
+* A GladNet2 INetworkMessageRouteBackService provides the following functionality
   * Can forward NetworkMessages fully intact with routing stack preserved
   * Can route back NetworkMessages by popping the routing stack and routing through the current application
     * Throws on empty routing stack
