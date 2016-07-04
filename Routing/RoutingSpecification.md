@@ -6,7 +6,7 @@ NetworkMessages define two wire-ready data members: the NetSendable{PacketPayloa
 
 ### AUID, Stack{int} and RoutingStack
 
-This internal Stack{int} represents all the available information a **NetworkMessage** has and needs to transmit for routing information. Using **AUID (Application Unique Identifiers)** this stack preserves the history of routing accessible with LIFO semantics. Using AUIDs a NetworkMessage can retain source information for a given server.
+This internal Stack{int} represents all the available information a **NetworkMessage** has and needs to transmit for routing information. Using **[AUID](https://github.com/HelloKitty/GladNet2.Specifications/blob/master/Routing/AUIDSpecification.md)s (Application Unique Identifiers)** this stack preserves the history of routing accessible with LIFO semantics. Using AUIDs a NetworkMessage can retain source information for a given server.
 
 The below example routing stack contains 3 AUIDs and can be treated as a history of the NetworkMessage:
 
@@ -36,4 +36,15 @@ GladNet2 specifications for AUID pushing and popping are as such:
   
 ### AUID Management
 
-GladNet2 routing specifications depends on AUIDs (Application Unique Identifiers) to route. Therefore, a GladNet2 implementation must adhere to the AUID specification:
+GladNet2 routing specifications depends on AUIDs (Application Unique Identifiers) to route. Therefore, a GladNet2 implementation must adhere to the AUID specification: [AUID](https://github.com/HelloKitty/GladNet2.Specifications/blob/master/Routing/AUIDSpecification.md)
+
+AUIDs can be used in the routing stack and used for route back if and only if the specification is followed.
+
+### Limitations of the GladNet2 Routing Scheme
+
+GladNet2's routing scheme as defined above as one sigificant limitation. That limitation being we can only route linearlly and the same route path taken must be used to route back. This is not a significant limitation, especially considering the vastness of the feature space, but it is the most significant.
+
+P1 --->  P2 --->  P3 must routeback in a the reverse linear fashion P3 -->  P2 -->  P1
+
+This is not valid P1 --> P2 --> P3 | P3 --> P4 --> P1 as the routing stack will not know how to route to P1 from P4.
+
