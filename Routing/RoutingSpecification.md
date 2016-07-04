@@ -44,6 +44,12 @@ GladNet2 routing specifications depends on AUIDs (Application Unique Identifiers
 
 AUIDs can be used in the routing stack and used for route back if and only if the specification is followed.
 
+### Route-back Outside Userspace
+
+Routing can be handled in several places. Routing can be done in Userspace where users of a GladNet2 implementation manually handle the routing and contact/interface with the route back service. Alternatively, and usually preferably, we can handle this internally within the implementation. The way we do this is by pre-processing RequestMessages and ResponseMessages before they reach userspace.
+
+To allow GladNet2 to handle routing internally the implementation must set the Boolean flag that indicates routeback required on the message. By setting this Boolean you can allow other GladNet applications to pre-process the incoming messages and route before they reach userspace. This allows for routing back without user's having to catch and handle the messages themselves.
+
 ### Limitations of the GladNet2 Routing Scheme
 
 GladNet2's routing scheme as defined above as one sigificant limitation. That limitation being we can only route linearlly and the same route path taken must be used to route back. This is not a significant limitation, especially considering the vastness of the feature space, but it is the most significant.
